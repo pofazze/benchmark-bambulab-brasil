@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benchmark Bambu Lab Brasil — Lojas Oficiais · Preços & Parcelamento</title>
+<style>
+  :root{
+    --navy:#040C22; --navy2:#0a1430; --navy3:#0f1b3d;
+    --blue:#0098D5; --cyan:#00CBF7; --ink:#e8eefc; --muted:#8da2c8;
+    --line:rgba(120,160,220,.14); --card:rgba(255,255,255,.025);
+    --green:#27d38a; --red:#ff5d6c; --amber:#ffc24b; --grey:#5d6b8a;
+    --good:#0ec0e0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(0,152,213,.18), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(0,203,247,.10), transparent 55%),
+      var(--navy);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased;
+    padding-bottom:60px;
+  }
+  .wrap{max-width:1240px;margin:0 auto;padding:0 22px}
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* HERO */
+  header.hero{padding:54px 0 30px;border-bottom:1px solid var(--line)}
+  .kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--cyan);font-weight:700;
+    background:rgba(0,203,247,.08);border:1px solid rgba(0,203,247,.25);
+    padding:6px 14px;border-radius:100px;margin-bottom:18px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+  h1{font-size:clamp(28px,5vw,50px);line-height:1.05;font-weight:800;letter-spacing:-.02em}
+  h1 .grad{background:linear-gradient(100deg,var(--cyan),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin-top:16px;max-width:760px;color:var(--muted);font-size:17px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .chip{font-size:12.5px;color:var(--muted);background:var(--card);border:1px solid var(--line);
+    padding:7px 13px;border-radius:8px}
+  .chip b{color:var(--ink)}
+
+  /* SECTION */
+  section{padding:42px 0 6px}
+  .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:6px}
+  h2{font-size:26px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
+  .lead{color:var(--muted);max-width:820px;margin-bottom:22px;font-size:15.5px}
+
+  /* INSIGHT CARDS */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(var(--cyan),var(--blue))}
+  .card h3{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin-bottom:8px}
+  .card .big{font-size:30px;font-weight:800;letter-spacing:-.02em;color:#fff}
+  .card .big small{font-size:15px;color:var(--cyan);font-weight:700}
+  .card p{font-size:13.5px;color:var(--muted);margin-top:6px}
+
+  /* TABLE */
+  .tablebox{background:var(--navy2);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:6px}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;padding:16px 16px 4px}
+  .fbtn{font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;border:1px solid var(--line);
+    padding:7px 13px;border-radius:8px;cursor:pointer;transition:.15s}
+  .fbtn:hover{color:var(--ink);border-color:var(--blue)}
+  .fbtn.active{color:var(--navy);background:linear-gradient(100deg,var(--cyan),var(--blue));border-color:transparent;font-weight:800}
+  .scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:920px;font-size:13.5px}
+  thead th{position:sticky;top:0;background:var(--navy3);color:#cfe0ff;text-align:right;font-weight:700;
+    padding:13px 14px;font-size:12px;letter-spacing:.02em;text-transform:uppercase;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+  thead th:first-child{text-align:left}
+  thead th .ar{opacity:.4;font-size:10px;margin-left:3px}
+  tbody td{padding:13px 14px;text-align:right;border-bottom:1px solid rgba(120,160,220,.07);white-space:nowrap}
+  tbody td:first-child{text-align:left}
+  tbody tr:hover{background:rgba(0,152,213,.06)}
+  .store{font-weight:700;color:#fff;font-size:14px}
+  .store small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:1px}
+  .price{font-variant-numeric:tabular-nums;font-weight:700;color:#fff}
+  .price .st{display:block;font-size:11px;font-weight:600;margin-top:2px}
+  .na{color:var(--grey);font-weight:500}
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:6px}
+  .b-parc{color:var(--cyan);background:rgba(0,203,247,.10);border:1px solid rgba(0,203,247,.22)}
+  .b-parc.low{color:var(--amber);background:rgba(255,194,75,.10);border-color:rgba(255,194,75,.25)}
+  .b-parc.bad{color:var(--red);background:rgba(255,93,108,.10);border-color:rgba(255,93,108,.25)}
+  .st-g{color:var(--green)} .st-r{color:var(--red)} .st-a{color:var(--amber)} .st-q{color:var(--muted)}
+  .cheapest{box-shadow:inset 0 0 0 1px rgba(39,211,138,.5);background:rgba(39,211,138,.07)!important;border-radius:6px}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;padding:14px 16px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+
+  /* RANKING */
+  .rank{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .rcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .rcard h4{font-size:14px;color:#fff;font-weight:800;margin-bottom:2px}
+  .rcard .mtag{font-size:11.5px;color:var(--muted);margin-bottom:12px}
+  .rrow{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-top:1px solid rgba(120,160,220,.08);font-size:13px}
+  .rrow:first-of-type{border-top:none}
+  .rrow .ln{color:var(--muted)} .rrow .ln b{color:var(--ink);font-weight:600}
+  .rrow .v{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+  .rrow.win .v{color:var(--green)}
+  .rrow.win .ln b{color:var(--green)}
+
+  /* NEXFARM BOX */
+  .nf{margin-top:8px;background:linear-gradient(120deg,rgba(0,152,213,.13),rgba(0,203,247,.05));
+    border:1px solid rgba(0,203,247,.25);border-radius:18px;padding:26px 28px}
+  .nf h2{margin-bottom:14px}
+  .nf ul{list-style:none;display:grid;gap:12px}
+  .nf li{display:flex;gap:12px;font-size:15px;color:var(--ink)}
+  .nf li b{color:#fff}
+  .nf .ic{flex:none;width:24px;height:24px;border-radius:7px;background:linear-gradient(var(--cyan),var(--blue));
+    color:var(--navy);font-weight:900;display:grid;place-items:center;font-size:13px;margin-top:1px}
+
+  /* DIRECTORY */
+  .dir{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:10px;margin-top:4px}
+  .dcard{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px 15px}
+  .dcard .dn{font-weight:700;color:#fff;font-size:13.5px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+  .dcard .uf{font-size:10.5px;font-weight:800;color:var(--cyan);background:rgba(0,203,247,.10);border:1px solid rgba(0,203,247,.2);padding:2px 7px;border-radius:5px;flex:none}
+  .dcard .dp{font-size:12px;color:var(--muted);margin-top:5px}
+  .dcard a{font-size:12px}
+  .pill{display:inline-block;font-size:10px;font-weight:800;color:var(--amber);background:rgba(255,194,75,.1);border:1px solid rgba(255,194,75,.25);padding:1px 7px;border-radius:5px;margin-left:6px;vertical-align:middle}
+
+  footer{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+  footer b{color:var(--ink)}
+  .src{margin-top:8px;line-height:1.7}
+  @media(max-width:640px){h1{font-size:30px}.card .big{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kick"><span class="dot"></span>Inteligência competitiva · NexFarm 3D</span>
+    <h1>Benchmark <span class="grad">Bambu Lab Brasil</span><br>Lojas oficiais · preço & parcelamento</h1>
+    <p class="sub">Como os revendedores <b>autorizados Bambu Lab</b> estão operando no Brasil: faixa de preço à vista (PIX), parcelamento sem juros e disponibilidade de pronta entrega — modelo a modelo.</p>
+    <div class="meta">
+      <span class="chip">📅 Coleta: <b>27/jun/2026</b></span>
+      <span class="chip">🏪 <b>44</b> revendedores oficiais (lista Bambu Lab)</span>
+      <span class="chip">🔎 <b>14</b> lojas com preço pesquisado</span>
+      <span class="chip">💳 Valores <b>à vista / PIX</b></span>
+    </div>
+  </header>
+
+  <!-- LEITURA DE MERCADO -->
+  <section>
+    <div class="eyebrow">Leitura de mercado</div>
+    <h2>O que os números dizem</h2>
+    <p class="lead">5 padrões que se repetem em quase todas as lojas oficiais — a régua que o concorrente está usando hoje.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Venda direta</h3>
+        <div class="big">0</div>
+        <p>A Bambu Lab <b>não vende direto no Brasil</b>. Não há preço oficial em real — 100% via rede de revendedores. Quem domina o canal, domina o preço.</p>
+      </div>
+      <div class="card">
+        <h3>Desconto PIX padrão</h3>
+        <div class="big">~10%<small> off</small></div>
+        <p>Praticamente todas dão <b>10% no PIX/boleto</b> sobre o preço de cartão. Virou régua de mercado, não diferencial.</p>
+      </div>
+      <div class="card">
+        <h3>Parcelamento s/ juros</h3>
+        <div class="big">12x <small>↔ 3x</small></div>
+        <p>O melhor (12x) está em Beehive, Best Layer e 3D Prime. Loja 3D faz só <b>6x</b> e a MakerHero só <b>3x</b> — aí o preço "afunda".</p>
+      </div>
+      <div class="card">
+        <h3>Geração 2026</h3>
+        <div class="big">P2S · X2D</div>
+        <p><b>P1S→P2S</b> e <b>X1C→X2D</b>. A maioria já tirou P1S e X1 Carbon de linha. Topo agora é H2D / H2S / H2C.</p>
+      </div>
+      <div class="card">
+        <h3>Tabela única</h3>
+        <div class="big">1</div>
+        <p>Preço de lista quase <b>idêntico</b> entre lojas (A1 Combo R$ 5.299, H2D Combo R$ 25.899…). Sinal de tabela de distribuidor comum. A briga real é parcela + estoque + brinde.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABELA COMPARATIVA -->
+  <section>
+    <div class="eyebrow">Comparativo por loja</div>
+    <h2>Preço à vista (PIX) · modelo a modelo</h2>
+    <p class="lead">Clique num modelo para filtrar, ou no cabeçalho de uma coluna para ordenar do mais barato ao mais caro. 🟢 verde = menor preço com pronta entrega.</p>
+    <div class="tablebox">
+      <div class="filters" id="filters"></div>
+      <div class="scroll">
+        <table id="tbl">
+          <thead><tr id="thead"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="legend">
+        <span><b class="st-g">🟢</b> pronta entrega</span>
+        <span><b class="st-r">🔴</b> esgotado / indisponível</span>
+        <span><b class="st-a">🟡</b> pré-venda / sob encomenda</span>
+        <span><b class="st-q">⚪</b> só sob consulta (cotação/WhatsApp)</span>
+        <span><b class="na">—</b> não vende esse modelo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANKING -->
+  <section>
+    <div class="eyebrow">Quem está mais barato</div>
+    <h2>Menor preço à vista por modelo</h2>
+    <p class="lead">O piso de preço atual em loja oficial — e quem está praticando.</p>
+    <div class="rank" id="rank"></div>
+  </section>
+
+  <!-- NEXFARM -->
+  <section>
+    <div class="nf">
+      <div class="eyebrow">Aplicação</div>
+      <h2>O que isso significa pra NexFarm</h2>
+      <ul>
+        <li><span class="ic">1</span><div><b>O preço da máquina virou commodity.</b> Lista praticamente travada e PIX 10% em todo mundo. Competir por “R$ mais barato” é corrida pro fundo — a NexFarm ganha em <b>ecossistema</b> (Academy, suporte, comunidade, garantia de operação), não em centavo de desconto.</div></li>
+        <li><span class="ic">2</span><div><b>Parcelamento é a alavanca subutilizada.</b> Metade do mercado para em 6x–10x. Quem oferece <b>12x sem juros de verdade</b> no A1/A1 Combo (coração da franquia) abre vantagem real de fluxo pro franqueado.</div></li>
+        <li><span class="ic">3</span><div><b>Estoque é o calcanhar.</b> Várias “lojas oficiais” anunciam mas estão <b>esgotadas</b> (Beehive, Best Layer, Loja 3D, Doctor3D, 3D Lab). Pronta entrega + entrega rápida é argumento de venda concreto hoje.</div></li>
+        <li><span class="ic">4</span><div><b>Faixa de referência p/ a Forja/franquia:</b> A1 Combo <b>R$ 4.769–5.697</b> à vista · A1 Mini Combo <b>R$ 3.743–4.543</b> · P2S Combo <b>~R$ 9.899</b> · X2D Combo <b>~R$ 12.599</b> · H2D Combo <b>~R$ 23.309</b>. É o teto que o cliente final já viu no Google.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DIRETÓRIO -->
+  <section>
+    <div class="eyebrow">Rede oficial</div>
+    <h2>Os 44 revendedores autorizados Bambu Lab</h2>
+    <p class="lead">Lista completa da página oficial <a href="https://bambulab.com/pt-br/dealer?region=Brazil" target="_blank">bambulab.com/pt-br/dealer</a>. <span class="pill">★ preço pesquisado</span> marca as lojas incluídas no comparativo acima.</p>
+    <div class="dir" id="dir"></div>
+  </section>
+
+  <footer>
+    <b>Benchmark Bambu Lab Brasil</b> — inteligência competitiva NexFarm 3D · coleta em 27/jun/2026.<br>
+    <div class="src">
+      <b>Fontes:</b> lista oficial de revendedores <a href="https://bambulab.com/pt-br/dealer?region=Brazil" target="_blank">bambulab.com/pt-br/dealer</a> · páginas de produto das próprias lojas (GTMAX, 3D Prime, Sethi 3D, Beehive, Best Layer, Tecnocubo, KaBuM, STLFLIX, Loja 3D, Doctor3D, 3D Lab, MakerHero, Wishbox, Bambu La Blu).<br>
+      <b>Nota:</b> preços e estoque mudam diariamente. Valores lidos diretamente das páginas; onde não havia preço visível, marcado “sob consulta”. Confira na loja antes de decidir.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ====== DADOS — à vista / PIX (R$). status: g=pronta entrega, r=esgotado, a=pré-venda/encomenda, q=sob consulta, null=não vende ====== */
+const MODELS = [
+  {key:"a1mini",   label:"A1 Mini"},
+  {key:"a1minicombo", label:"A1 Mini Combo"},
+  {key:"a1",       label:"A1"},
+  {key:"a1combo",  label:"A1 Combo"},
+  {key:"p1scombo", label:"P1S Combo"},
+  {key:"x1ccombo", label:"X1C Combo"},
+  {key:"p2scombo", label:"P2S Combo"},
+  {key:"x2dcombo", label:"X2D Combo"},
+  {key:"h2dcombo", label:"H2D Combo"},
+];
+// p:[valor, status]   (valor null = não vende / sob consulta)
+const STORES = [
+  {loja:"GTMAX", uf:"SP", parc:8, note:"PIX 10% off",
+   p:{a1mini:[2087,"g"],a1minicombo:[3743,"g"],a1:[3176,"g"],a1combo:[4769,"g"],p1scombo:null,x1ccombo:null,p2scombo:[9899,"g"],x2dcombo:[12599,"g"],h2dcombo:[23309,"g"]}},
+  {loja:"3D Prime", uf:"SP", parc:12, note:"catálogo + completo",
+   p:{a1mini:[2087,"g"],a1minicombo:[3743,"g"],a1:[3176,"g"],a1combo:[4769,"g"],p1scombo:[7379,"g"],x1ccombo:[9899,"a"],p2scombo:[9899,"g"],x2dcombo:null,h2dcombo:[23309,"g"]}},
+  {loja:"Sethi 3D", uf:"SP", parc:10, note:"Campinas",
+   p:{a1mini:[2087,"g"],a1minicombo:[3743,"g"],a1:[3303,"g"],a1combo:[4864,"g"],p1scombo:null,x1ccombo:null,p2scombo:[9359,"g"],x2dcombo:null,h2dcombo:[23309,"g"]}},
+  {loja:"Beehive", uf:"SP", parc:12, note:"PIX 10% off",
+   p:{a1mini:[2087,"g"],a1minicombo:[3743,"r"],a1:[3176,"r"],a1combo:[4769,"g"],p1scombo:null,x1ccombo:null,p2scombo:[9899,"r"],x2dcombo:[12599,"g"],h2dcombo:[23309,"g"]}},
+  {loja:"Best Layer", uf:"SP", parc:12, note:"frete grátis",
+   p:{a1mini:[2087,"g"],a1minicombo:[3743,"g"],a1:[3176,"r"],a1combo:[4769,"g"],p1scombo:null,x1ccombo:null,p2scombo:[9899,"g"],x2dcombo:[12599,"g"],h2dcombo:[23309,"g"]}},
+  {loja:"Tecnocubo", uf:"SP", parc:10, note:"PIX 10% off",
+   p:{a1mini:[2203,"g"],a1minicombo:null,a1:[3176,"g"],a1combo:[4769,"g"],p1scombo:null,x1ccombo:null,p2scombo:[9899,"g"],x2dcombo:[12599,"g"],h2dcombo:[23309,"g"]}},
+  {loja:"KaBuM", uf:"Marketplace", parc:10, note:"vários sellers",
+   p:{a1mini:[2203,"g"],a1minicombo:null,a1:null,a1combo:[5299,"g"],p1scombo:[7825,"g"],x1ccombo:null,p2scombo:[9899,"g"],x2dcombo:[12597,"g"],h2dcombo:null}},
+  {loja:"STLFLIX", uf:"SC", parc:10, note:"só A1 + bônus",
+   p:{a1mini:null,a1minicombo:[4543,"g"],a1:[3976,"g"],a1combo:[5569,"g"],p1scombo:null,x1ccombo:null,p2scombo:null,x2dcombo:null,h2dcombo:null}},
+  {loja:"Loja 3D", uf:"DF", parc:6, note:"pré-venda · só 6x",
+   p:{a1mini:[2191,"a"],a1minicombo:[3930,"a"],a1:[3335,"a"],a1combo:[null,"r"],p1scombo:[8294,"r"],x1ccombo:null,p2scombo:[null,"r"],x2dcombo:null,h2dcombo:[null,"r"]}},
+  {loja:"Doctor3D", uf:"SP", parc:0, note:"parcela c/ juros",
+   p:{a1mini:[2140,"g"],a1minicombo:[null,"r"],a1:null,a1combo:[4869,"g"],p1scombo:[null,"r"],x1ccombo:[null,"r"],p2scombo:[null,"r"],x2dcombo:[12599,"g"],h2dcombo:[null,"r"]}},
+  {loja:"3D Lab", uf:"MG", parc:10, note:"só combos",
+   p:{a1mini:null,a1minicombo:[4482,"r"],a1:null,a1combo:[5697,"g"],p1scombo:[9990,"r"],x1ccombo:[16298,"r"],p2scombo:[null,"q"],x2dcombo:null,h2dcombo:[null,"r"]}},
+  {loja:"MakerHero", uf:"SC", parc:3, note:"preço cartão · só 3x",
+   p:{a1mini:[2610,"g"],a1minicombo:[5200,"g"],a1:[3960,"g"],a1combo:[6600,"g"],p1scombo:null,x1ccombo:null,p2scombo:null,x2dcombo:null,h2dcombo:null}},
+  {loja:"Wishbox", uf:"SC", parc:-1, note:"B2B · só cotação",
+   p:{a1mini:null,a1minicombo:null,a1:null,a1combo:null,p1scombo:[null,"q"],x1ccombo:[null,"q"],p2scombo:null,x2dcombo:null,h2dcombo:[null,"q"]}},
+  {loja:"Bambu La Blu", uf:"SC", parc:-1, note:"vitrine · WhatsApp",
+   p:{a1mini:[null,"q"],a1minicombo:null,a1:[null,"q"],a1combo:null,p1scombo:[null,"q"],x1ccombo:[null,"q"],p2scombo:null,x2dcombo:null,h2dcombo:[null,"q"]}},
+];
+
+const STD={g:"🟢",r:"🔴",a:"🟡",q:"⚪"};
+const STC={g:"st-g",r:"st-r",a:"st-a",q:"st-q"};
+const STT={g:"pronta entrega",r:"esgotado",a:"pré-venda/encomenda",q:"sob consulta"};
+const money=v=>"R$ "+v.toLocaleString("pt-BR",{minimumFractionDigits:0});
+function parcBadge(p){
+  if(p===-1) return '<span class="badge b-parc bad">cotação</span>';
+  if(p===0)  return '<span class="badge b-parc bad">c/ juros</span>';
+  let cls = p>=12?"":(p>=8?"":(p>=6?"low":"bad"));
+  return `<span class="badge b-parc ${cls}">${p}x s/ juros</span>`;
+}
+
+let curModel="a1combo", sortKey=null, sortDir=1;
+
+function buildFilters(){
+  const f=document.getElementById("filters");
+  f.innerHTML="";
+  MODELS.forEach(m=>{
+    const b=document.createElement("button");
+    b.className="fbtn"+(m.key===curModel?" active":"");
+    b.textContent=m.label;
+    b.onclick=()=>{curModel=m.key;sortKey=null;render();};
+    f.appendChild(b);
+  });
+  const all=document.createElement("button");
+  all.className="fbtn"+(curModel==="ALL"?" active":"");
+  all.textContent="▦ Ver todos";
+  all.onclick=()=>{curModel="ALL";sortKey=null;render();};
+  f.appendChild(all);
+}
+
+function render(){
+  buildFilters();
+  const thead=document.getElementById("thead");
+  const tbody=document.getElementById("tbody");
+  const cols = curModel==="ALL" ? MODELS : MODELS.filter(m=>m.key===curModel);
+
+  // header
+  let h=`<th onclick="sortBy('loja')">Loja <span class="ar">↕</span></th>`;
+  cols.forEach(c=> h+=`<th onclick="sortBy('${c.key}')">${c.label} <span class="ar">↕</span></th>`);
+  h+=`<th onclick="sortBy('parc')">Parcel. s/ juros <span class="ar">↕</span></th>`;
+  if(curModel!=="ALL") h+=`<th>Pronta entrega?</th>`;
+  thead.innerHTML=h;
+
+  // rows
+  let rows=[...STORES];
+  // ocultar lojas que não vendem o modelo filtrado (só no modo 1 modelo)
+  if(curModel!=="ALL") rows=rows.filter(s=>s.p[curModel]!==null && s.p[curModel]!==undefined);
+
+  // menor preço do modelo atual (para destacar)
+  let minVal=null;
+  if(curModel!=="ALL"){
+    rows.forEach(s=>{const c=s.p[curModel]; if(c&&c[0]!=null&&c[1]==="g"){ if(minVal===null||c[0]<minVal)minVal=c[0]; }});
+  }
+
+  // sort
+  if(sortKey){
+    rows.sort((a,b)=>{
+      let va,vb;
+      if(sortKey==="loja"){va=a.loja.toLowerCase();vb=b.loja.toLowerCase();return va<vb?-sortDir:va>vb?sortDir:0;}
+      if(sortKey==="parc"){va=a.parc;vb=b.parc;return (va-vb)*sortDir;}
+      const ca=a.p[sortKey],cb=b.p[sortKey];
+      va=ca&&ca[0]!=null?ca[0]:Infinity; vb=cb&&cb[0]!=null?cb[0]:Infinity;
+      return (va-vb)*sortDir;
+    });
+  }
+
+  tbody.innerHTML = rows.map(s=>{
+    let r=`<td><span class="store">${s.loja}<small>${s.uf} · ${s.note}</small></span></td>`;
+    cols.forEach(c=>{
+      const cell=s.p[c.key];
+      if(cell===null||cell===undefined){ r+=`<td><span class="na">—</span></td>`; return; }
+      const [val,st]=cell;
+      const stIco=STD[st]||"", stCls=STC[st]||"";
+      if(val==null){ r+=`<td><span class="${stCls}">${stIco} ${STT[st]||""}</span></td>`; return; }
+      const hi=(curModel!=="ALL"&&val===minVal&&st==="g")?" cheapest":"";
+      r+=`<td><span class="price${hi}">${money(val)}<span class="st ${stCls}">${stIco} ${STT[st]}</span></span></td>`;
+    });
+    r+=`<td>${parcBadge(s.parc)}</td>`;
+    if(curModel!=="ALL"){
+      const cell=s.p[curModel]; const st=cell?cell[1]:null;
+      r+=`<td><span class="${STC[st]||'na'}" style="font-size:18px">${STD[st]||"—"}</span></td>`;
+    }
+    return `<tr>${r}</tr>`;
+  }).join("");
+}
+function sortBy(k){ if(sortKey===k)sortDir*=-1; else{sortKey=k;sortDir=1;} render(); }
+
+/* ===== RANKING menor preço à vista ===== */
+function buildRank(){
+  const want=[
+    {key:"a1mini",label:"A1 Mini",tag:"sem AMS"},
+    {key:"a1combo",label:"A1 Combo",tag:"com AMS · coração da franquia"},
+    {key:"a1minicombo",label:"A1 Mini Combo",tag:"com AMS Lite"},
+    {key:"p2scombo",label:"P2S Combo",tag:"sucessor do P1S"},
+    {key:"x2dcombo",label:"X2D Combo",tag:"sucessor do X1 Carbon"},
+    {key:"h2dcombo",label:"H2D Combo",tag:"flagship"},
+  ];
+  const el=document.getElementById("rank");
+  el.innerHTML=want.map(w=>{
+    let list=STORES.map(s=>({loja:s.loja,c:s.p[w.key]}))
+      .filter(x=>x.c&&x.c[0]!=null&&x.c[1]==="g")
+      .sort((a,b)=>a.c[0]-b.c[0]).slice(0,3);
+    if(!list.length){
+      return `<div class="rcard"><h4>${w.label}</h4><div class="mtag">${w.tag}</div>
+        <div class="rrow"><span class="ln">sem pronta entrega com preço aberto</span></div></div>`;
+    }
+    let rows=list.map((x,i)=>`<div class="rrow ${i===0?'win':''}"><span class="ln">${i===0?'🥇 ':''}<b>${x.loja}</b></span><span class="v">${money(x.c[0])}</span></div>`).join("");
+    return `<div class="rcard"><h4>${w.label}</h4><div class="mtag">${w.tag} · à vista/PIX</div>${rows}</div>`;
+  }).join("");
+}
+
+/* ===== DIRETÓRIO 44 lojas ===== */
+const DIR=[
+  ["3DTouch","PR","(41) 99284-9402","loja.3dtouch.com.br"],
+  ["Beehive","SP","(11) 99442-1414","beehive.com.br",1],
+  ["GTMAX","SP","(19) 98219-6756","gtmax3d.com.br",1],
+  ["STLFLIX","SC","(47) 98810-7638","stlflix.com.br",1],
+  ["3D Lab","MG","(31) 3594-4973","3dlab.com.br",1],
+  ["Loja 3D","DF","(61) 98220-4333","loja3d.com.br",1],
+  ["Tecnocubo","SP","(11) 4413-5950","tecnocubo.com.br",1],
+  ["3D Print Academy","SP","(11) 4413-5950","loja3dpa.com.br"],
+  ["3D Curitiba","PR","(41) 9705-1243","3dcuritiba.com.br"],
+  ["3D Prime","SP","(11) 4211-9180","3dprime.com.br",1],
+  ["Best Layer","SP","(11) 4221-1778","lojabestlayer3d.com.br",1],
+  ["AnimaPrint 3D","SP","(11) 95979-2022","animaprint3d.com.br"],
+  ["Casa Touro","SP","(11) 95629-9082","casatouro.com.br"],
+  ["3D Brothers","PR","(41) 8774-0070","3dbrothers.com.br"],
+  ["3deras","RS","(51) 9892-8048","3deras.com.br"],
+  ["MakerHero","SC","(48) 3307-3495","makerhero.com",1],
+  ["Tu e lá 3D","SP","(11) 99518-3770","tuela.com.br"],
+  ["Wishbox","SC","(47) 9911-0227","wishbox.net.br",1],
+  ["zapach","SP","(11) 98607-8866","zapach.com.br"],
+  ["Karimex","SP","(11) 5189-1980","karimex.com.br"],
+  ["Amazon","Marketplace","—","amazon.com.br"],
+  ["KaBuM","Marketplace","—","kabum.com.br",1],
+  ["3Dfmaster","DF","(61) 98300-0405","3dcentrooeste.com.br"],
+  ["Fozit","SC","(47) 99967-5225","fozit.com.br"],
+  ["ArtBox","SP","(11) 98821-2411","artbox3d.com.br"],
+  ["BS Maker Shop","PR","(41) 98855-0032","bsmakershop.com.br"],
+  ["Central Print","SP","(11) 92033-2972","centralprint3d.com.br"],
+  ["Stephan","SP","(11) 96476-9436","lojastephan.com.br"],
+  ["Miranda – Natal","RN","(84) 2010-1010","miranda.com.br"],
+  ["Miranda – Mossoró","RN","(84) 3422-8888","miranda.com.br"],
+  ["Miranda – João Pessoa","PB","(83) 3690-0110","miranda.com.br"],
+  ["Pietrix 3D","GO","(62) 92001-4193","pietrix3d.com.br"],
+  ["Bambu La Blu","SC","(47) 99277-2299","bambulablu.com.br",1],
+  ["Doctor3D","SP","(11) 94735-9532","doctor3d.com.br",1],
+  ["3DClub","MA","(98) 98152-4303","3dclub.com.br"],
+  ["Zyntria","PR","(41) 98483-9353","zyntria.com.br"],
+  ["Smart Projects","AM","(92) 98143-3583","smartprojectsbrasil.com.br"],
+  ["Tritan3D","SC","(47) 99266-3876","tritan3d.com.br"],
+  ["Impressão Sua 3D","SP","(11) 98857-5446","impressaosua3d.com.br"],
+  ["Artfull3D","PR","(44) 99169-7608","artfull3d.com.br"],
+  ["Sethi 3D","SP","(19) 3256-9567","sethi3d.com.br",1],
+  ["Encantto 3D","SP","(19) 99233-7665","encantto3d.com.br"],
+  ["Ouro 3D","RO","(69) 99333-2078","ouro3d.com.br"],
+];
+function buildDir(){
+  document.getElementById("dir").innerHTML=DIR.map(d=>{
+    const star=d[4]?'<span class="pill">★ pesquisado</span>':'';
+    const tel=d[2]!=="—"?`<div class="dp">📞 ${d[2]}</div>`:`<div class="dp">🛒 marketplace</div>`;
+    return `<div class="dcard"><div class="dn"><span>${d[0]}${star}</span><span class="uf">${d[1]}</span></div>
+      ${tel}<a href="https://${d[3].replace(/^https?:\/\//,'')}" target="_blank">${d[3]} ↗</a></div>`;
+  }).join("");
+}
+
+render(); buildRank(); buildDir();
+</script>
+</body>
+</html>
